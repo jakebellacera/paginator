@@ -16,7 +16,7 @@ paginator = new Paginator(myElement);
 paginator.build();
 ```
 
-## Options
+### Options
 
 Available options and their defaults for Paginator are:
 
@@ -57,11 +57,11 @@ Paginator supports callbacks. A callback is a function that is fired after a spe
 
 `onInvalidPage` is fired when the user goes to an invalid page. This should never happen and is installed for precautionary reasons.
 
-## Methods
+### Methods
 
 Paginator currently supports three methods: `build`, `goToPage` and `destroy`.
 
-### build
+#### build
 
 Builds and binds events to the paginator. Returns the `Paginator` instance. `build` cannot be ran once it's built.
 
@@ -70,7 +70,7 @@ paginated = paginator(myElement);
 paginated.build();
 ```
 
-### goToPage(_pageNumber[int]_)
+#### goToPage(_pageNumber[int]_)
 
 Tells the Paginator instance to go to a specific page. If the page number is out of bounds, the `onInvalidPage` callback will fire. Returns the `Paginator` instance.
 
@@ -82,7 +82,7 @@ paginated.build();
 paginated.goToPage(5);
 ```
 
-### destroy
+#### destroy
 
 Reverts the `Paginator` instance back to the visual state prior to being built.
 
@@ -96,4 +96,4 @@ paginated.destroy();
 
 ## Contributing
 
-Find a bug? Want to add a feature? Fork this repo and then submit a pull request. :thumbs:
+Find a bug? Want to add a feature? Fork this repo and then submit a pull request. :thumbsup:
