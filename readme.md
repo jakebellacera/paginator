@@ -46,7 +46,7 @@ paginated.settings.nextText = 'Next';
 
 Paginator supports callbacks. A callback is a function that is fired after a specific event. There is currently only one callback. You set callbacks in the options hash.
 
-#### onInvalidPage(_pageNumber[int]_)
+#### onInvalidPage(pageNumber[int])
 
 ```javascript
 {
@@ -71,7 +71,7 @@ paginated = paginator(myElement);
 paginated.build();
 ```
 
-#### goToPage(_pageNumber[int]_)
+#### goToPage(pageNumber[int])
 
 Tells the Paginator instance to go to a specific page. If the page number is out of bounds, the `onInvalidPage` callback will fire. Returns the `Paginator` instance.
 
