@@ -54,6 +54,7 @@ Paginator supports callbacks. A callback is a function that is fired after a spe
     alert('Went to invalid page:' + pageNumber);
   }
 }
+```
 
 `onInvalidPage` is fired when the user goes to an invalid page. This should never happen and is installed for precautionary reasons.
 
