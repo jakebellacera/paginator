@@ -1,11 +1,11 @@
 # paginator.js
 
-A superfast paginator, built in Prototype.
+A super fast paginator, built in Prototype.
 
 ## Usage
 
 ```javascript
-Paginator(myElement, options);
+new Paginator(myElement, options);
 ```
 
 To page an element's children, simply pass the element to a new Paginator object.
@@ -97,4 +97,4 @@ paginated.destroy();
 
 ## Contributing
 
-Find a bug? Want to add a feature? Fork this repo and then submit a pull request. :thumbsup:
+Find a bug? Want to add improvements? Fork this repo and then submit a pull request. :thumbsup:

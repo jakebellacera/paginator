@@ -1,7 +1,7 @@
 /**
  * paginator.js
  * ------------
- * A superfast paginator, built in Prototype.
+ * A super fast paginator, built in Prototype.
  * 
  * Usage:
  *   paginated = new Paginator(myElement, options);
@@ -28,10 +28,10 @@
  *   URL:    http://github.com/jakebellacera/paginator
  */
 
-var Paginator = (function () {
-  var Page;
+var Paginator, PaginatorPage;
 
-  function Paginator(container, opts) {
+Paginator = Class.create({
+  initialize: function (container, opts) {
     // Override any default settings
     this.settings = Object.extend({
       amount: 3,
@@ -46,9 +46,12 @@ var Paginator = (function () {
 
     // Set the container
     this.container = container;
-  };
 
-  Paginator.prototype.build = function () {
+    return this;
+  },
+
+  // Build
+  build: function () {
     var self = this;
 
     // Unset destroyed status
@@ -69,7 +72,7 @@ var Paginator = (function () {
 
     // Build the pages
     for (var i = 0; i < Math.ceil(self.children.length/self.settings.amount); i++) {
-      self.pages.push( new Page( new Element('div', { 'class': 'page-' + (i+1)}) ) );
+      self.pages.push( new PaginatorPage( new Element('div', { 'class': 'page-' + (i+1)}) ) );
       self.wrap.insert(self.pages[i].node);
 
       // Put scoped child elements into the page
@@ -85,10 +88,10 @@ var Paginator = (function () {
     self.goToPage(self.curPage);
 
     return self;
-  };
+  },
 
-  // Navigation builder
-  Paginator.prototype.createNav = function () {
+  // Build navigation
+  createNav: function () {
     var self = this, a;
 
     if (self.built) {
@@ -145,19 +148,19 @@ var Paginator = (function () {
     }
 
     return self;
-  }
+  },
 
   // Page traversing handler
-  Paginator.prototype.goToPage = function (n) {
+  goToPage: function (pageNumber) {
     var self = this;
 
     try {
       if (self.built) {
-        self.pages[n].node.show().siblings().each(function (siblingPage) {
+        self.pages[pageNumber].node.show().siblings().each(function (siblingPage) {
           siblingPage.hide();
         });
 
-        self.curPage = n;
+        self.curPage = pageNumber;
 
         // Handle number nav
         if (self.settings.numbers) {
@@ -185,14 +188,14 @@ var Paginator = (function () {
       }
 
     } catch (TypeError) {
-      self.settings.onInvalidPage(n);
+      self.settings.onInvalidPage(pageNumber);
     }
 
     return self;
-  }
+  },
 
-  // Completely remove Paginator
-  Paginator.prototype.destroy = function () {
+  // Completely remove paginator
+  destroy: function () {
     var self = this;
 
     if (self.built) {
@@ -215,29 +218,25 @@ var Paginator = (function () {
 
     return self;
   }
+});
 
-  Page = (function () {
-    function Page(node) {
-      this.node = node.hide();
-      return this;
-    }
+PaginatorPage = Class.create({
+  intialize: function (container) {
+    this.container = container.hide();
+    return this;
+  },
 
-    // Add a child element
-    Page.prototype.add = function (ele) {
-      return this.node.insert(ele);
-    };
+  // Add a child element
+  add: function (ele) {
+    return this.container.insert(ele);
+  },
 
-    // Move all child elements into a new location
-    Page.prototype.destroy = function (newLocation) {
-      var self = this;
-
-      self.node.remove().childElements().each(function (child) {
-        newLocation.insert(child);
-      });
-    };
-
-    return Page;
-  })();
-
-  return Paginator;
-})();
+  // Destructor method. Moves all child elements to a new location
+  // and then removes itself.
+  destroy: function (newLocation) {
+    this.container.remove().childElements().each(function (child) {
+      newLocation.insert(child);
+    });
+    return this;
+  }
+});
