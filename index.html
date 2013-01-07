@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Paginator.js by jakebellacera</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Paginator.js</h1>
+          <h2>A simple paginator built in JavaScript.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/jakebellacera/paginator/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/jakebellacera/paginator/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/jakebellacera/paginator" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h2>Usage</h2>
+
+<div class="highlight"><pre><span class="k">new</span> <span class="nx">Paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<p>To page an element's children, simply pass the element to a new Paginator object.</p>
+
+<div class="highlight"><pre><span class="nx">myElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'myElement'</span><span class="p">);</span>
+<span class="nx">paginator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">);</span>
+<span class="nx">paginator</span><span class="p">.</span><span class="nx">build</span><span class="p">();</span>
+</pre></div>
+
+<h3>Options</h3>
+
+<p>Available options and their defaults for Paginator are:</p>
+
+<div class="highlight"><pre><span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">amount</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>            <span class="c1">// Number of items per page</span>
+  <span class="nx">numbers</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>        <span class="c1">// Show numbers navigation</span>
+  <span class="nx">paddles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>        <span class="c1">// Show next/prev navigation</span>
+  <span class="nx">prevText</span><span class="o">:</span> <span class="s1">'Previous'</span><span class="p">,</span> <span class="c1">// Text for previous paddle</span>
+  <span class="nx">nextText</span><span class="o">:</span> <span class="s1">'Next'</span>      <span class="c1">// Text for next paddle</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>You can also set options after Paginator has been built via the <code>settings</code> hash:</p>
+
+<div class="highlight"><pre><span class="nx">paginated</span> <span class="o">=</span> <span class="nx">paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">);</span>
+
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">amount</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">numbers</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">paddles</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">prevText</span> <span class="o">=</span> <span class="s1">'Previous'</span><span class="p">;</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">nextText</span> <span class="o">=</span> <span class="s1">'Next'</span><span class="p">;</span>
+</pre></div>
+
+<h3>Callbacks</h3>
+
+<p>Paginator supports callbacks. A callback is a function that is fired after a specific event. There is currently only one callback. You set callbacks in the options hash.</p>
+
+<h4>onInvalidPage(pageNumber[int])</h4>
+
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="nx">onInvalidPage</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">pageNumber</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Went to invalid page:'</span> <span class="o">+</span> <span class="nx">pageNumber</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><code>onInvalidPage</code> is fired when the user goes to an invalid page. This should never happen and is installed for precautionary reasons.</p>
+
+<h3>Methods</h3>
+
+<p>Paginator currently supports three methods: <code>build</code>, <code>goToPage</code> and <code>destroy</code>.</p>
+
+<h4>build</h4>
+
+<p>Builds and binds events to the paginator. Returns the <code>Paginator</code> instance. <code>build</code> cannot be ran once it's built.</p>
+
+<div class="highlight"><pre><span class="nx">paginated</span> <span class="o">=</span> <span class="nx">paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">);</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">build</span><span class="p">();</span>
+</pre></div>
+
+<h4>goToPage(pageNumber[int])</h4>
+
+<p>Tells the Paginator instance to go to a specific page. If the page number is out of bounds, the <code>onInvalidPage</code> callback will fire. Returns the <code>Paginator</code> instance.</p>
+
+<p><em>Note: <code>goToPage</code> requires the Paginator instance to be built. Run <code>build</code> prior to using this method.</em></p>
+
+<div class="highlight"><pre><span class="nx">paginated</span> <span class="o">=</span> <span class="nx">paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">);</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">build</span><span class="p">();</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">goToPage</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+
+<h4>destroy</h4>
+
+<p>Reverts the <code>Paginator</code> instance back to the visual state prior to being built.</p>
+
+<p><em>Note: An unbuilt <code>Paginator</code> instance cannot be destroyed.</em></p>
+
+<div class="highlight"><pre><span class="nx">paginated</span> <span class="o">=</span> <span class="nx">paginator</span><span class="p">(</span><span class="nx">myElement</span><span class="p">);</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">build</span><span class="p">();</span>
+<span class="nx">paginated</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</pre></div>
+
+<h2>Contributing</h2>
+
+<p>Find a bug? Want to add improvements? Fork this repo on <a href="http://github.com/jakebellacera/paginator">GitHub</a> and then submit a pull request. <img class="emoji" title=":thumbsup:" alt=":thumbsup:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/thumbsup.png" height="20" width="20" align="absmiddle"></p>
+        </section>
+
+        <footer>
+          Paginator.js is maintained by <a href="https://github.com/jakebellacera">jakebellacera</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
